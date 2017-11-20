@@ -3,6 +3,7 @@ Connects to the embedded software running n a microcontroller board (i.e. Arduin
 
 # Prerequisites
 Python 2.7
+pySerial (install with python `-m pip install pyserial`)
 
 # Running
 python moonrailsbridge.py
