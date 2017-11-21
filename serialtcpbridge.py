@@ -32,6 +32,7 @@ class TcpHandler(SocketServer.BaseRequestHandler):
                     print "{} wrote: {}".format(self.client_address[0], self.rxbuf)
                 globalvars.bridge.arduino_port.write(self.rxbuf)
                 self.rxbuf = bytearray()
+        print "TCP client {} disconnected".format(self.client_address[0])
         globalvars.tcp_sockets.remove(self.request)
 class serialTcpBridge():
     '''
