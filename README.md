@@ -2,8 +2,8 @@
 Connects to the embedded software running n a microcontroller board (i.e. Arduino) and exposes its communication channel as a TCP/IP server
 
 # Prerequisites
-Python 2.7 (2.7.9+)
-pySerial (install with `python -m pip install pyserial`)
+- Python 2.7 (2.7.9+)
+- pySerial (install with `python -m pip install pyserial`)
 
 # Running
 python moonrailsbridge.py
