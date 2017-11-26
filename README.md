@@ -9,7 +9,7 @@ Connects to the embedded software running n a microcontroller board (i.e. Arduin
 python moonrailsbridge.py
 
 # Stopping on Windows
-On some environments Ctrl+C might not stop the application. Try Ctrl+Break or Ctrl+Pause combo then.
+On some environments Ctrl+C might not stop the application. Try Ctrl+Pause/Break combo then.
 
 # TODO
 - Minimize global variables usage
