@@ -1,5 +1,6 @@
-#!/usr/local/bin/python2.7
+#!/bin/env python
 # encoding: utf-8
+
 '''
 moonrailsbridge -- connects to the embedded software running
 on a microcontroller board (i.e. Arduino) and exposes its communication
@@ -113,7 +114,7 @@ USAGE
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
         return 0
-    except Exception, e:
+    except Exception as e:
         if DEBUG or TESTRUN:
             raise(e)
         indent = len(program_name) * " "

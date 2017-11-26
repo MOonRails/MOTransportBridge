@@ -4,7 +4,7 @@ Created on 19 Nov 2017
 @author: Dominik Marszk
 '''
 
-import SocketServer
+import socketserver
 import globalvars
 from threading import Thread
 
@@ -16,10 +16,10 @@ def broadcastToSockets(buf):
             # Ignore socket error - socket should be purged by its RX handler
             continue
 
-class TcpHandler(SocketServer.BaseRequestHandler):
+class TcpHandler(socketserver.BaseRequestHandler):
     def handle(self):
         # self.request is the TCP socket connected to the client
-        print "TCP client connected from {}".format(self.client_address[0])
+        print("TCP client connected from {}".format(self.client_address[0]))
         self.rxbuf = bytearray()
         globalvars.tcp_sockets.append(self.request)
         while True:
@@ -29,10 +29,10 @@ class TcpHandler(SocketServer.BaseRequestHandler):
             self.rxbuf.append(rxbyte)
             if rxbyte == '\n':
                 if globalvars.verbose > 0:
-                    print "{} wrote: {}".format(self.client_address[0], self.rxbuf)
+                    print("{} wrote: {}".format(self.client_address[0], self.rxbuf))
                 globalvars.bridge.arduino_port.write(self.rxbuf)
                 self.rxbuf = bytearray()
-        print "TCP client {} disconnected".format(self.client_address[0])
+        print("TCP client {} disconnected".format(self.client_address[0]))
         globalvars.tcp_sockets.remove(self.request)
 class serialTcpBridge():
     '''
@@ -60,7 +60,7 @@ class serialTcpBridge():
             if rxbyte == '\n':
                 #write to TCPIP
                 if globalvars.verbose > 0:
-                    print "OBSW wrote: {}".format(serial_buffer)
+                    print("OBSW wrote: {}".format(serial_buffer))
                 broadcastToSockets(serial_buffer)
                 serial_buffer = bytearray()
     
@@ -72,9 +72,9 @@ class serialTcpBridge():
         if globalvars.verbose > 0:
             print(self.arduino_port)
         serialRxThread = Thread(target = self.downlinkThread)
-        print "Starting downlink receiver at port {}".format(self.arduino_port.port)
+        print("Starting downlink receiver at port {}".format(self.arduino_port.port))
         serialRxThread.start()
-        print "Starting TCP server on {}:{}".format(globalvars.SERVER_HOST, globalvars.SERVER_PORT)
-        server = SocketServer.ThreadingTCPServer((globalvars.SERVER_HOST, globalvars.SERVER_PORT), TcpHandler)
+        print("Starting TCP server on {}:{}".format(globalvars.SERVER_HOST, globalvars.SERVER_PORT))
+        server = socketserver.ThreadingTCPServer((globalvars.SERVER_HOST, globalvars.SERVER_PORT), TcpHandler)
         server.serve_forever()
         serialRxThread.join()
